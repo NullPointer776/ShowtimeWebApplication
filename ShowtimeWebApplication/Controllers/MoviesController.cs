@@ -19,16 +19,31 @@ namespace ShowtimeWebApplication.Controllers
             _userManager = userManager;
         }
 
-
         // GET: Movies
-        [AllowAnonymous]//allow visitor to see the movie list
-        public async Task<IActionResult> Index()
+        [AllowAnonymous]//Allow visitor view the movie
+        public async Task<IActionResult> Index(string sortOrder, string genreFilter, string searchString)
         {
-            var movies = await _context.Movies
-                .Include(m => m.Showtimes)
-                .ToListAsync();
-            return View(movies);
+            ViewData["TitleSort"] = string.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewData["CurrentFilter"] = searchString;
+            ViewData["GenreFilter"] = genreFilter;
+            var movies = from m in _context.Movies.Include(m => m.Showtimes)
+                        select m;
+            //Search
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                movies = movies.Where(m => m.Title.Contains(searchString));
+            }
+            //Filter by genre
+            if (!string.IsNullOrEmpty(genreFilter))
+            {
+                var genre = Enum.Parse<Genre>(genreFilter);
+                movies = movies.Where(m => m.Genre == genre);
+            }
+            //Sort
+            movies = sortOrder == "title_desc" ? movies.OrderByDescending(m => m.Title) : movies.OrderBy(m => m.Title);
+            return View(await movies.ToListAsync());
         }
+        
 
         // GET: Movies/Details/5
         [AllowAnonymous]//allow visitor to see the movie details
