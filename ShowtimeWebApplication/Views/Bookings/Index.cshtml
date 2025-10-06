@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ShowtimeWebApplication.Models.Booking>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Bookings</h1>
+
+<p>
+    <a asp-action="Create">Create New Booking</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfTickets)
+            </th>
+            <th>
+                User
+            </th>
+            <th>
+                Movie Information
+            </th>
+            <th>
+                Showtime Information
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookingDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfTickets)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.FullName)
+                </td>
+                <td>
+                    <strong>@item.Showtime.Movie.Title</strong><br />
+                    Genre: @item.Showtime.Movie.Genre<br />
+                    Duration: @item.Showtime.Movie.Duration minutes
+                </td>
+                <td>
+                    <strong>@item.Showtime.StartTime.ToString("MMM dd, yyyy h:mm tt")</strong><br />
+                    Available Seats: @item.Showtime.AvailableSeats<br />
+                    Price: $@(item.Showtime.Price*item.NumberOfTickets)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

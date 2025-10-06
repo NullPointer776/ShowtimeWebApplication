@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ShowtimeWebApplication.Models.Movie>
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New Movie</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Duration</th>
+            <th>Showtimes</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.Genre</td>
+                <td>@item.Duration minutes</td>
+                <td>
+                    @if (item.Showtimes?.Any() == true)
+                    {
+                        foreach (var showtime in item.Showtimes)
+                        {
+                            <div>@showtime.StartTime.ToString("MMM dd, yyyy h:mm tt")</div>
+                        }
+                    }
+                    else
+                    {
+                        <span>No showtimes</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
