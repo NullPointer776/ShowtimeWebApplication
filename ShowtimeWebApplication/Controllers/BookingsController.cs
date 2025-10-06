@@ -174,8 +174,7 @@ namespace ShowtimeWebApplication.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
+
                     var booking = await _context.Bookings.FindAsync(id);
                     if (booking == null)
                     {
@@ -187,18 +186,7 @@ namespace ShowtimeWebApplication.Controllers
 
                     _context.Update(booking);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!BookingExists(viewModel.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+
                 return RedirectToAction(nameof(Index));
             }
 

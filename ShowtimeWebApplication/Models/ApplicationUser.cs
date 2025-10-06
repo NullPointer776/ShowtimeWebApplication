@@ -3,6 +3,7 @@ namespace ShowtimeWebApplication.Models
 {
     public class ApplicationUser :IdentityUser
     {
+        [PersonalData]
         public string FullName { get; set; }
         public ICollection<Booking> Bookings { get; set; }
     }
