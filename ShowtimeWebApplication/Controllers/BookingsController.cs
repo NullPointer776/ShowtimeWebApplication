@@ -150,7 +150,7 @@ namespace ShowtimeWebApplication.Controllers
                 MovieTitle = booking.Showtime.Movie.Title,
                 Showtime = booking.Showtime.StartTime
             };
-            ViewData["ShowtimeId"] = new SelectList(_context.Showtimes
+            ViewBag.ShowtimeId = new SelectList(_context.Showtimes
                 .Include(s => s.Movie)
                 .Select(s => new {
                     s.Id,
@@ -166,7 +166,7 @@ namespace ShowtimeWebApplication.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, BookingEditViewModel viewModel)
-        {
+        { 
             if (id != viewModel.Id)
             {
                 return NotFound();
@@ -203,7 +203,7 @@ namespace ShowtimeWebApplication.Controllers
                 viewModel.Showtime = bookingForDisplay.Showtime.StartTime;
             }
 
-            ViewData["ShowtimeId"] = new SelectList(_context.Showtimes
+            ViewBag.ShowtimeId = new SelectList(_context.Showtimes
                 .Include(s => s.Movie)
                 .Select(s => new {
                     s.Id,
