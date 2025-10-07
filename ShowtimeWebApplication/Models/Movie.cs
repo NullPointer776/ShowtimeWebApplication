@@ -1,4 +1,6 @@
-﻿namespace ShowtimeWebApplication.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ShowtimeWebApplication.Models
 {
     public enum Genre
     {
@@ -18,6 +20,7 @@
         public int Id { get; set; }
         public string Title { get; set; }
         public Genre Genre { get; set; } = Genre.Action;
+        [Range(0, 10000)]
         public int Duration { get; set; } 
         public ICollection<Showtime> Showtimes { get; set; } = new List<Showtime>();
         public ICollection<Booking> Bookings { get; set; }

@@ -66,7 +66,8 @@
                     {
                         foreach (var showtime in item.Showtimes)
                         {
-                            <div>@showtime.StartTime.ToString("MMM dd, yyyy h:mm tt")</div>
+                            <div>StartTime:@showtime.StartTime.ToString("MMM dd, yyyy h:mm tt")</div>
+                            <div>Price: $@showtime.Price</div>
                         }
                     }
                     else

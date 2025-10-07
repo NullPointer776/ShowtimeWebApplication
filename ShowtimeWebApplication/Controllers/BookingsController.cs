@@ -101,11 +101,12 @@ namespace ShowtimeWebApplication.Controllers
                 {
                     NumberOfTickets = viewModel.NumberOfTickets,
                     ShowtimeId = viewModel.ShowtimeId,
-                    UserId = _userManager.GetUserId(User), 
-                    BookingDate = DateTime.Now 
+                    UserId = _userManager.GetUserId(User),
+                    BookingDate = DateTime.Now,
                 };
-
+               
                 _context.Add(booking);
+                
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

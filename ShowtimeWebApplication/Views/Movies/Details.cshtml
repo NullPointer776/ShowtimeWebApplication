@@ -25,8 +25,25 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Duration)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Duration)
+        </dd>
+        <dt class = "col-sm-2">
+            Showtimes
+        </dt>
+        <dd class = "col-sm-10">
+            @if (Model.Showtimes?.Any() == true)
+            {
+                foreach (var showtime in Model.Showtimes)
+                {
+                    <div>StartTime: @showtime.StartTime.ToString("MMM dd, yyyy h:mm tt")</div>
+                    <div>Price: $@showtime.Price</div>
+                }
+            }
+            else
+            {
+                <span>No showtimes</span>
+            }
         </dd>
     </dl>
 </div>

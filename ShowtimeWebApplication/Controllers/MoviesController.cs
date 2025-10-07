@@ -89,7 +89,6 @@ namespace ShowtimeWebApplication.Controllers
                 var showtime = new Showtime
                 {
                     StartTime = viewModel.StartTime,
-                    AvailableSeats = viewModel.AvailableSeats,
                     Price = viewModel.Price,
                     Movie = movie
                 };
@@ -128,7 +127,6 @@ namespace ShowtimeWebApplication.Controllers
                 Genre = movie.Genre,
                 Duration = movie.Duration,
                 StartTime = movie.Showtimes.FirstOrDefault()?.StartTime ?? DateTime.Now.AddDays(1),
-                AvailableSeats = movie.Showtimes.FirstOrDefault()?.AvailableSeats ?? 100,
                 Price = movie.Showtimes.FirstOrDefault()?.Price ?? 12.50m
             };
 
@@ -166,7 +164,6 @@ namespace ShowtimeWebApplication.Controllers
                     if (showtime != null)
                     {
                         showtime.StartTime = viewModel.StartTime;
-                        showtime.AvailableSeats = viewModel.AvailableSeats;
                         showtime.Price = viewModel.Price;
                     }
                     else
@@ -174,7 +171,6 @@ namespace ShowtimeWebApplication.Controllers
                         movie.Showtimes.Add(new Showtime
                         {
                             StartTime = viewModel.StartTime,
-                            AvailableSeats = viewModel.AvailableSeats,
                             Price = viewModel.Price,
                             MovieId = movie.Id
                         });

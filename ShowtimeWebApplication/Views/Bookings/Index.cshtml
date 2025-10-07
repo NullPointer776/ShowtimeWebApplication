@@ -19,7 +19,7 @@
                 @Html.DisplayNameFor(model => model.NumberOfTickets)
             </th>
             <th>
-                User
+                User Name
             </th>
             <th>
                 Movie Information
@@ -50,7 +50,7 @@
                 </td>
                 <td>
                     <strong>@item.Showtime.StartTime.ToString("MMM dd, yyyy h:mm tt")</strong><br />
-                    Available Seats: @item.Showtime.AvailableSeats<br />
+                    @item.BookingDate.ToString("MMM dd, yyyy")<br />
                     Price: $@(item.Showtime.Price*item.NumberOfTickets)
                 </td>
                 <td>

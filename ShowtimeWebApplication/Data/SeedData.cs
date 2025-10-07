@@ -87,7 +87,6 @@ namespace ShowtimeWebApplication.Data
                         {
                             MovieId = movies[i].Id,
                             StartTime = new DateTime(2025, 9, 15 + i, 18, 0, 0),
-                            AvailableSeats = 100,
                             Price = 12.50m + i
                         });
 
@@ -95,7 +94,6 @@ namespace ShowtimeWebApplication.Data
                         {
                             MovieId = movies[i].Id,
                             StartTime = new DateTime(2025, 9, 15 + i, 21, 0, 0),
-                            AvailableSeats = 100,
                             Price = 12.50m + i
                         });
                     }

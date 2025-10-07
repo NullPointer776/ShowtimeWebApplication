@@ -13,23 +13,10 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            @if (User.IsInRole("Admin"))
-            {
                 <div class="form-group">
-                    <label asp-for="UserFullName" class="control-label">Change UserFullName</label>
-                    <select asp-for="UserFullName" class="form-control" asp-items="ViewBag.UserFullName">
-                        <option value="">-- Select UserFullName --</option>
-                    </select>
-                    <span asp-validation-for="UserFullName" class="text-danger"></span>
-                </div>
-            }
-            @if(User.IsInRole("User"))
-            {
-                <div class="form-group">
-                    <label class="control-label">User</label>
+                    <label class="control-label">Booking owner</label>
                     <input class="form-control" value="@Model.UserFullName" readonly />
                 </div>
-            }
                       
             <div class="form-group">
                 <label class="control-label">Booking Date</label>

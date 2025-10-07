@@ -7,7 +7,6 @@
         public Genre Genre { get; set; }
         public int Duration { get; set; }
         public DateTime StartTime { get; set; }
-        public int AvailableSeats { get; set; }
         public decimal Price { get; set; }
     }
 }
