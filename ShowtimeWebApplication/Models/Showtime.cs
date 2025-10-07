@@ -5,9 +5,10 @@ namespace ShowtimeWebApplication.Models
     public class Showtime
     {
         public int Id { get; set; }
+        [DataType(DataType.DateTime)]
         public DateTime StartTime { get; set; }
+        [DataType(DataType.Currency)]
         [Range(0, int.MaxValue, ErrorMessage = "Please enter a value bigger than {0}")]
-
         public decimal Price { get; set; }
         public int MovieId { get; set; }
 
