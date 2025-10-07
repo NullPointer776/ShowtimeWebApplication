@@ -44,3 +44,13 @@ body {
     height: 80vh;
     gap: 1.5rem;
 }
+
+.table {
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border-radius: 16px;
+}
+
+.table a {
+    color: deepskyblue;
+}
