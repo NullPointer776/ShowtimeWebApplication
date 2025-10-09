@@ -4,6 +4,7 @@ namespace ShowtimeWebApplication.Models
 {
     public class Showtime
     {
+        [Key]
         public int Id { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime StartTime { get; set; }

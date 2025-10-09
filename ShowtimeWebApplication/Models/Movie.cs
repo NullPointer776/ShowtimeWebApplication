@@ -17,6 +17,7 @@ namespace ShowtimeWebApplication.Models
     }
     public class Movie
     {
+        [Key]
         public int Id { get; set; }
         [Required]
         [StringLength(100)]
