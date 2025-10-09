@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using ShowtimeWebApplication.Data;
 using ShowtimeWebApplication.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace ShowtimeWebApplication.Controllers
 {
@@ -43,7 +44,6 @@ namespace ShowtimeWebApplication.Controllers
             movies = sortOrder == "title_desc" ? movies.OrderByDescending(m => m.Title) : movies.OrderBy(m => m.Title);
             return View(await movies.ToListAsync());
         }
-        
 
         // GET: Movies/Details/5
         [AllowAnonymous]//allow visitor to see the movie details

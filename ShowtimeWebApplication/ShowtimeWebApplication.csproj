@@ -8,7 +8,9 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
     <!-- ADD THE FOLLOWING NEW ELEMENT -->
-      <AdditionalFileItemNames>$(AdditionalFileItemNames);Content</AdditionalFileItemNames>
+    <AdditionalFileItemNames>$(AdditionalFileItemNames);Content</AdditionalFileItemNames>
+	 <PumaScanOutputFormat>html</PumaScanOutputFormat>
+	 <PumaScanOutputFile>security-report.html</PumaScanOutputFile>
   </PropertyGroup>
 
   <ItemGroup>
