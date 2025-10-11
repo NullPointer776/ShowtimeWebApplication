@@ -86,7 +86,7 @@ namespace ShowtimeWebApplication.Controllers
 
             return View();
         }
-
+        [Authorize(Roles = "User,Admin")]// Only authenticated users can create booking
         // POST: Bookings/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -142,7 +142,7 @@ namespace ShowtimeWebApplication.Controllers
 
             return View(booking);
         }
-
+        [Authorize(Roles = "User,Admin")]// Only authenticated users can delete booking
         // POST: Bookings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

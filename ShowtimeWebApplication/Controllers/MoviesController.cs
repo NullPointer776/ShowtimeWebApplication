@@ -72,6 +72,7 @@ namespace ShowtimeWebApplication.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")] // Only Admin can create movies
         // POST: Movies/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -132,7 +133,7 @@ namespace ShowtimeWebApplication.Controllers
 
             return View(viewModel);
         }
-
+        [Authorize(Roles = "Admin")] // Only Admin can edit movies
         // POST: Movies/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -214,7 +215,7 @@ namespace ShowtimeWebApplication.Controllers
 
             return View(movie);
         }
-
+        [Authorize(Roles = "Admin")] // Only Admin can delete movies
         // POST: Movies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
