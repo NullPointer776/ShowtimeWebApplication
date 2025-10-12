@@ -21,14 +21,12 @@ namespace ShowtimeTestingProject.Controllers
         {
             IEnumerable<Movie> movies = GetMovieList();
 
-            // Search with case-insensitive comparison
             if (!string.IsNullOrEmpty(searchString))
             {
                 movies = movies.Where(m =>
                     m.Title.Contains(searchString, System.StringComparison.OrdinalIgnoreCase));
             }
 
-            // Filter by genre with error handling
             if (!string.IsNullOrEmpty(genreFilter))
             {
                 if (System.Enum.TryParse<Genre>(genreFilter, out var genre))
@@ -37,7 +35,6 @@ namespace ShowtimeTestingProject.Controllers
                 }
             }
 
-            // Sort
             movies = sortOrder == "title_desc"
                 ? movies.OrderByDescending(m => m.Title)
                 : movies.OrderBy(m => m.Title);
@@ -47,7 +44,50 @@ namespace ShowtimeTestingProject.Controllers
 
         public IActionResult Details(int id)
         {
-            return View();
+            var movie = GetMovieList().FirstOrDefault(m => m.Id == id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+            return View(movie);
+        }
+
+        public IActionResult Create(Movie movie)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(movie);
+        }
+
+
+        public IActionResult Edit(int id, Movie movie)
+        {
+            if (id != movie.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(movie);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var movie = GetMovieList().FirstOrDefault(m => m.Id == id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+            return View(movie);
+        }
+        public IActionResult DeleteConfirmed(int id)
+        {
+            return RedirectToAction(nameof(Index));
         }
     }
 }
