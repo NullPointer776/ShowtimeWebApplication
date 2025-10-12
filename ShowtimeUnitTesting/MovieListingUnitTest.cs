@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using ShowtimeTestingProject.Controllers;
 using ShowtimeWebApplication.Models;
 namespace ShowtimeTestingProject;
@@ -5,60 +6,59 @@ namespace ShowtimeTestingProject;
 [TestClass]
 public class MovieListingUnitTest
 {
+    private List<Movie> GetMoviesFromResult(IActionResult result)
+    {
+        var viewResult = result as ViewResult;
+        return (viewResult?.Model as List<Movie>) ?? new List<Movie>();
+    }
+
     [TestMethod]
     public void TestSearchMethod()
     {
-        MoviesUnitTestController controller = new MoviesUnitTestController();
-        var movies = controller.GetMovieList();
-        var searchString = "S";
-        var result = controller.Index(searchString, null, null);
-        var list=new List<Movie>
-        {
-            new Movie {Title = "SF1", Genre = Genre.ScienceFiction, Duration = 136  },
-            new Movie { Title = "SF2", Genre = Genre.ScienceFiction, Duration = 148 }
-        };
-        //Checking is the result contains the expected movies
-        CollectionAssert.Contains(list, result);
+        var controller = new MoviesUnitTestController();
+        var result = controller.Index(null, null, "S");
+        var actualMovies = GetMoviesFromResult(result);
+
+        var expectedTitles = new List<string> { "SF1", "SF2" };
+        var actualTitles = actualMovies.Select(m => m.Title).ToList();
+
+        CollectionAssert.AreEqual(expectedTitles, actualTitles);
     }
+
+    [TestMethod]
     public void TestFilterMethod()
     {
-        MoviesUnitTestController controller = new MoviesUnitTestController();
-        var movies = controller.GetMovieList();
-        var genreFilter = Genre.ScienceFiction;
-        var result = controller.Index(null, genreFilter.ToString(), null);
+        var controller = new MoviesUnitTestController();
+        var result = controller.Index(null, "ScienceFiction", null);
+        var actualMovies = GetMoviesFromResult(result);
 
-        var list = new List<Movie>
-        {
-            new Movie {Title = "SF1", Genre = Genre.ScienceFiction, Duration = 136  },
-            new Movie { Title = "SF2", Genre = Genre.ScienceFiction, Duration = 148 }
-        };
-        Assert.IsTrue(result.Any(m => m.Title == "SF1"));
-        Assert.IsTrue(actualMovies.Any(m => m.Title == "SF2"));
+        Assert.AreEqual(2, actualMovies.Count);
+        Assert.IsTrue(actualMovies.All(m => m.Genre == Genre.ScienceFiction));
     }
+
+    [TestMethod]
     public void TestSortAscendingMethod()
     {
-        MoviesUnitTestController controller = new MoviesUnitTestController();
-        var movies = controller.GetMovieList();
-        var sortOrder = "";
-        var result = controller.Index(sortOrder,null,null);
-        var list = new List<Movie>
-        {
-            new Movie { Title = "A", Genre = Genre.Action, Duration = 152 },
-            new Movie {Title = "SF1", Genre = Genre.ScienceFiction, Duration = 136  },
-            new Movie { Title = "SF2", Genre = Genre.ScienceFiction, Duration = 148 }
-        };
-        for (int i=0;i<list.Count;i++)
-        {
-            Assert.IsTrue(list[i].Title, result[i].Title);
-        }
-        
+        var controller = new MoviesUnitTestController();
+        var result = controller.Index("", null, null);
+        var actualMovies = GetMoviesFromResult(result);
+
+        var expectedTitles = new List<string> { "A", "SF1", "SF2" };
+        var actualTitles = actualMovies.Select(m => m.Title).ToList();
+
+        CollectionAssert.AreEqual(expectedTitles, actualTitles);
     }
+
+    [TestMethod]
     public void TestSortDescendingMethod()
     {
-        MoviesUnitTestController controller = new MoviesUnitTestController();
-        var movies = controller.GetMovieList();
-        var searchString = "Inception";
-        var result = movies.Where(m => m.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList();
-        Assert.AreEqual(1, result.Count);
+        var controller = new MoviesUnitTestController();
+        var result = controller.Index("title_desc", null, null);
+        var actualMovies = GetMoviesFromResult(result);
+
+        var expectedTitles = new List<string> { "SF2", "SF1", "A" };
+        var actualTitles = actualMovies.Select(m => m.Title).ToList();
+
+        CollectionAssert.AreEqual(expectedTitles, actualTitles);
     }
 }
