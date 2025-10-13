@@ -5,7 +5,7 @@ VisualStudioVersion = 17.14.36518.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowtimeWebApplication", "ShowtimeWebApplication.csproj", "{71AC2C26-370C-4CEB-9F23-19667332A959}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowtimeTestingProject", "..\ShowtimeUnitTesting\ShowtimeTestingProject.csproj", "{1AC0DF60-A376-47DC-B6A1-57145D46A241}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowtimeUnitTestProject", "..\ShowtimeUnitTesting\ShowtimeUnitTestProject.csproj", "{1AC0DF60-A376-47DC-B6A1-57145D46A241}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowtimeAutomationTest", "..\ShowtimeAutomationTest\ShowtimeAutomationTest.csproj", "{06F4669A-7EBB-4CA5-94CF-14EA5AB8ED9D}"
 EndProject
