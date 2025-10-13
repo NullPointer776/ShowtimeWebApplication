@@ -146,51 +146,38 @@ namespace ShowtimeWebApplication.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    var movie = await _context.Movies
+                var movie = await _context.Movies
                         .Include(m => m.Showtimes)
                         .FirstOrDefaultAsync(m => m.Id == id);
 
-                    if (movie == null)
-                    {
-                        return NotFound();
-                    }
-
-                    movie.Title = viewModel.Title;
-                    movie.Genre = viewModel.Genre;
-                    movie.Duration = viewModel.Duration;
-
-                    var showtime = movie.Showtimes.FirstOrDefault();
-                    if (showtime != null)
-                    {
-                        showtime.StartTime = viewModel.StartTime;
-                        showtime.Price = viewModel.Price;
-                    }
-                    else
-                    {
-                        movie.Showtimes.Add(new Showtime
-                        {
-                            StartTime = viewModel.StartTime,
-                            Price = viewModel.Price,
-                            MovieId = movie.Id
-                        });
-                    }
-
-                    _context.Update(movie);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
+                if (movie == null)
                 {
-                    if (!MovieExists(viewModel.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
+
+                movie.Title = viewModel.Title;
+                movie.Genre = viewModel.Genre;
+                movie.Duration = viewModel.Duration;
+
+                var showtime = movie.Showtimes.FirstOrDefault();
+                if (showtime != null)
+                {
+                    showtime.StartTime = viewModel.StartTime;
+                    showtime.Price = viewModel.Price;
+                }
+                else
+                {
+                    movie.Showtimes.Add(new Showtime
+                    {
+                        StartTime = viewModel.StartTime,
+                        Price = viewModel.Price,
+                        MovieId = movie.Id
+                    });
+                }
+
+                _context.Update(movie);
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(viewModel);

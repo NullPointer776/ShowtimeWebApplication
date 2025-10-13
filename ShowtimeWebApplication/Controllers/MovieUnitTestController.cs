@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShowtimeWebApplication.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,27 +53,32 @@ namespace ShowtimeTestingProject.Controllers
             return View(movie);
         }
 
-        public IActionResult Create(Movie movie)
+        public IActionResult Create(string title, Genre genre, int duration, DateTime startTime, decimal price)
         {
-            if (ModelState.IsValid)
+            var movie = new Movie
             {
-                return RedirectToAction(nameof(Index));
-            }
+                Title = title,
+                Genre = genre,
+                Duration = duration
+            };
+
+            var showtime = new Showtime
+            {
+                StartTime = startTime,
+                Price = price,
+                Movie = movie
+            };
+
+            movie.Showtimes.Add(showtime);
+
             return View(movie);
         }
 
 
         public IActionResult Edit(int id, Movie movie)
         {
-            if (id != movie.Id)
-            {
-                return NotFound();
-            }
 
-            if (ModelState.IsValid)
-            {
-                return RedirectToAction(nameof(Index));
-            }
+
             return View(movie);
         }
 
