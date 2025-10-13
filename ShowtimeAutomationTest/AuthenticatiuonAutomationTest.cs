@@ -1,3 +1,4 @@
+using NuGet.Packaging.Signing;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
@@ -52,8 +53,8 @@ public class AuthenticationAutomationTest
         // Wait for redirect and verify successful registration
         System.Threading.Thread.Sleep(3000);
 
-        // Check if redirected to home page or login page
-        Assert.IsTrue(driver.Url.Contains("/") || driver.Url.Contains("Login"));
+        // Check if it redirected to logged-in home page after registration
+        Assert.IsTrue(driver.PageSource.Contains($"Hello test{timestamp}@test.com!"));
     }
     [TestMethod]
     public void TestUserLogin()
@@ -75,6 +76,6 @@ public class AuthenticationAutomationTest
         System.Threading.Thread.Sleep(3000);
 
         // Check if redirected to home page or movies page after login
-        Assert.IsTrue(driver.Url.Contains("/") || driver.Url.Contains("Movies"));
+        Assert.IsTrue(driver.PageSource.Contains("Hello user@showtime.com!"));
     }
 }
