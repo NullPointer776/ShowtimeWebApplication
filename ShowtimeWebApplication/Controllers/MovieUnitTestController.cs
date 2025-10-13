@@ -74,26 +74,21 @@ namespace ShowtimeTestingProject.Controllers
             return View(movie);
         }
 
-
-        public IActionResult Edit(int id, Movie movie)
+        public IActionResult Edit(int id, string title, Genre genre, int duration)
         {
-
-
+            var movie = GetMovieList().FirstOrDefault(m => m.Id == id);
+            movie.Title = title;
+            movie.Genre = genre;
+            movie.Duration = duration;
             return View(movie);
         }
 
         public IActionResult Delete(int id)
         {
             var movie = GetMovieList().FirstOrDefault(m => m.Id == id);
-            if (movie == null)
-            {
-                return NotFound();
-            }
+            var allMovies = GetMovieList();
+            allMovies.Remove(movie);
             return View(movie);
-        }
-        public IActionResult DeleteConfirmed(int id)
-        {
-            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -20,7 +20,9 @@ public class MovieUnitTests
     public void TestDetailMethod()
     {
         MoviesUnitTestController controller = new MoviesUnitTestController();
-        var result = controller.Details(1);
+        var test = controller.GetMovieList();
+        var id = test[0].Id;
+        var result = controller.Details(id);
         var movie = (result as ViewResult)?.Model as Movie;
         Assert.IsNotNull(movie);
     }
@@ -36,69 +38,15 @@ public class MovieUnitTests
     public void TestEditMethod()
     {
         MoviesUnitTestController controller = new MoviesUnitTestController();
-        //var result = controller.Edit(1, "movie title", Genre.Drama);
-        //var movie = (result as ViewResult)?.Model as Movie;
-        //Assert.IsNotNull(movie);
-    }
-    /*
-        if (id != viewModel.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                var movie = await _context.Movies
-                        .Include(m => m.Showtimes)
-                        .FirstOrDefaultAsync(m => m.Id == id);
-
-                if (movie == null)
-                {
-                    return NotFound();
-                }
-
-                movie.Title = viewModel.Title;
-                movie.Genre = viewModel.Genre;
-                movie.Duration = viewModel.Duration;
-
-                var showtime = movie.Showtimes.FirstOrDefault();
-                if (showtime != null)
-                {
-                    showtime.StartTime = viewModel.StartTime;
-                    showtime.Price = viewModel.Price;
-                }
-                else
-                {
-                    movie.Showtimes.Add(new Showtime
-                    {
-                        StartTime = viewModel.StartTime,
-                        Price = viewModel.Price,
-                        MovieId = movie.Id
-                    });
-                }
-
-                _context.Update(movie);
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Index));
-            }
-            return View(viewModel);
-     */
-    [TestMethod]
-    public void TestDeleteMethod()
-    {
-        MoviesUnitTestController controller = new MoviesUnitTestController();
-        var result = controller.Details(1);
+        var test= controller.GetMovieList();
+        var id= test[0].Id;
+        var result = controller.Edit(id, "Updated Movie Title", Genre.Drama, 180);
         var movie = (result as ViewResult)?.Model as Movie;
+
         Assert.IsNotNull(movie);
-    }
-    [TestMethod]
-    public void TestDeletConfirmMethod()
-    {
-        MoviesUnitTestController controller = new MoviesUnitTestController();
-        var result = controller.Details(1);
-        var movie = (result as ViewResult)?.Model as Movie;
-        Assert.IsNotNull(movie);
+        Assert.AreEqual("Updated Movie Title", movie.Title);
+        Assert.AreEqual(Genre.Drama, movie.Genre);
+        Assert.AreEqual(180, movie.Duration);
     }
 }
 
