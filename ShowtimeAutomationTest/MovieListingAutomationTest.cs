@@ -156,14 +156,14 @@ public class MovieListingAutomationTest
 
         // Click filter reset button
         var resetButtons = _driver.FindElements(By.TagName("a")).Where(l => l.Text == "Reset").ToList();
-        var searchResetButton = resetButtons[0]; // Second reset button is for search
+        var searchResetButton = resetButtons[1]; // Second reset button is for search
         searchResetButton.Click();
 
 
         // Wait for all results to load
         wait.Until(d => d.FindElement(By.TagName("tbody")));
 
-        // Verify all movies are displayed (not just drama)
+        // Get table body contents and rows contents
         var tableBody = _driver.FindElement(By.TagName("tbody"));
         var movieRows = _driver.FindElements(By.TagName("tr"));
 
