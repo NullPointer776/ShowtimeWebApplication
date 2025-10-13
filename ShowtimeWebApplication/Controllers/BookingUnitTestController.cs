@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ShowtimeTestingProject.Controllers
 {
-    public class BookingsUnitTestController : Controller
+    public class BookingUnitTestController : Controller
     {
         public List<Booking> GetBookingList()
         {
