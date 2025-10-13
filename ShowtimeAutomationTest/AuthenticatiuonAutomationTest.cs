@@ -16,6 +16,7 @@ public class AuthenticationAutomationTest
         driver.Navigate().GoToUrl("https://localhost:7085");
     }
 
+
     [TestCleanup]
     public void Cleanup()
     {

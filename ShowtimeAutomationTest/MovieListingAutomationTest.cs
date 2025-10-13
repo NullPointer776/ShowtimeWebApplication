@@ -85,7 +85,8 @@ public class MovieListingAutomationTest
         wait.Until(d => d.FindElement(By.TagName("tbody")));
 
         // Get all movie titles from the table
-        var titles = _driver.FindElements(By.XPath("//tbody/tr/td[1]")).Where(td => !string.IsNullOrEmpty(td.Text)).Select(t => t.Text).ToList();
+        var titles = _driver.FindElements(By.XPath("//tbody/tr/td[1]"))
+            .Where(td => !string.IsNullOrEmpty(td.Text)).Select(t => t.Text).ToList();
 
         // Verify titles are in ascending order
         var sortedTitles = titles.OrderBy(t => t).ToList();
@@ -104,7 +105,8 @@ public class MovieListingAutomationTest
         wait.Until(d => d.FindElement(By.TagName("tbody")));
 
         // Get all movie titles from the table
-        var titles = _driver.FindElements(By.XPath("//tbody/tr/td[1]")).Where(td => !string.IsNullOrEmpty(td.Text)).Select(t => t.Text).ToList();
+        var titles = _driver.FindElements(By.XPath("//tbody/tr/td[1]"))
+            .Where(td => !string.IsNullOrEmpty(td.Text)).Select(t => t.Text).ToList();
 
         // Verify titles are in descending order
         var sortedTitles = titles.OrderByDescending(t => t).ToList();
