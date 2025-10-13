@@ -42,7 +42,7 @@ namespace ShowtimeWebApplication.AutomationTests
         public void TestCreateMovie()
         {
             Login();
-            _driver.FindElement(By.LinkText("Create New")).Click();
+            _driver.FindElement(By.LinkText("Create New Movie")).Click();
 
             new WebDriverWait(_driver, TimeSpan.FromSeconds(10)).Until(d => d.FindElement(By.Id("Title")));
 
@@ -50,9 +50,11 @@ namespace ShowtimeWebApplication.AutomationTests
             _driver.FindElement(By.Id("Duration")).SendKeys("120");
 
             new SelectElement(_driver.FindElement(By.Id("Genre"))).SelectByText("Action");
-            _driver.FindElement(By.Id("StartTime")).SendKeys("2024-01-01T20:00");
+            _driver.FindElement(By.Id("StartTime")).Click();
+            _driver.FindElement(By.Id("StartTime")).SendKeys("10/13/2025");
+            _driver.FindElement(By.Id("StartTime")).SendKeys(Keys.Tab);
+            _driver.FindElement(By.Id("StartTime")).SendKeys("08:00PM");
             _driver.FindElement(By.Id("Price")).SendKeys("12.99");
-
             _driver.FindElement(By.CssSelector("input[type='submit']")).Click();
 
             new WebDriverWait(_driver, TimeSpan.FromSeconds(10)).Until(d => d.FindElement(By.TagName("tbody")));
